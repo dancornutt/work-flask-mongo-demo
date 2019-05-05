@@ -41,7 +41,7 @@ mongo = pymongo.MongoClient(
 
 db = pymongo.database.Database(mongo, 'irc_db')
 col = pymongo.collection.Collection(db, 'parts')
-
+col = pymongo.collection.Collection(db, 'installs')
 
 # queries:
 # all features of single part
