@@ -7,16 +7,24 @@ class MongoCloud():
     """Mongo Atlas Connection"""
 
     def __init__(self):
-        self.user = "kiwi-admin"
-        self.user_pw = "Test777Boeing"
+        self.user, self.user_pw = import_pass()
         self.connect = None
 
     def __enter__(self):
-        self.connection = pymongo.MongoClient('mongodb+srv://{user}:{pw}@kiwi-jwnc9.azure.mongodb.net/test?retryWrites=true'.format(
-            user=self.user, user_pw=self.user_pw), maxPoolSize=50, connect=False)
+        self.connection = pymongo.MongoClient(f'mongodb+srv://{self.user}:{self.pw}@kiwi-jwnc9.azure.mongodb.net/test?retryWrites=true', maxPoolSize=50, connect=False)
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.connection.close()
+
+    def import_pass():
+        with open('passwords.txt', 'r') as f:
+            data = f.readlines()
+        for line in data:
+            if "cluster admin user" in line:
+                user = line.split()[-1:][0]
+            if "cluster admin pw" in line:
+                pw = line.split()[-1:][0]
+        return user, pw
 
 
 def log_setup():
@@ -29,7 +37,7 @@ def add_db(db):
 
 
 mongo = pymongo.MongoClient(
-    'mongodb+srv://{user}:{user_pw}@kiwi-jwnc9.azure.mongodb.net/test?retryWrites=true', maxPoolSize=50, connect=False)
+    'mongodb+srv://{user}:{user_pw}@kiwi-jwnc9.azure.mongodb.net/test?retryWrites=true'.format(user=), maxPoolSize=50, connect=False)
 
 db = pymongo.database.Database(mongo, 'irc_db')
 col = pymongo.collection.Collection(db, 'parts')
