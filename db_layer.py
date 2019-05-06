@@ -2,7 +2,6 @@ import pymongo
 import csv
 import logging
 from pprint import pprint
-from bson.json_util import dumps
 
 
 def import_pass():
@@ -32,11 +31,36 @@ class MongoCloud():
         self.connection.close()
         print("Connection Closed")
 
-    def add_db(self, db):
-        self.connection().database.Database(mongo, db)
 
-    def add_col(self, col):
-        self.connection().collection.Collection(self.db, col)
+class MongoDB():
+    """Mongo Atlas database object"""
+
+    def __init__(self, db_name):
+        self.name = db_name,
+        client = MongoCloud()
+        with client:
+            database = client.connection[db_name]
+        self.db = database
+
+    def collection_search(self, coll_name, search_d, p_console=False):
+        qry = list(self.db[coll_name].find(search_d))
+        if p_console:
+            pprint(qry)
+        return qry
+
+    def add_collection_csv(self, collection, f_name_path=""):
+        """Reads csv by line. Uses csv dict iterator to loop through csv and add to collection
+        param1: target collection
+        param2: relative path and filename to csv data
+        """
+
+        with open(f_name_path, mode='r', encoding='utf-8-sig') as csv_f:
+            reader = csv.DictReader(csv_f)
+            for row in reader:
+                try:
+                    self.db[collection].insert_one(row)
+                except ValueError:
+                    logging.debug("Error Parsing data: {}".format(row))
 
 
 def log_setup():
@@ -56,35 +80,7 @@ def log_setup():
 # function(collection, dict[col]: values
 #   returns json of query
 
-def connect_db(db):
-    client = MongoCloud()
-    with client:
-        database = client.connection[db]
-    return database
-
-
-def add_collection_csv(collection, f_name_path=""):
-    """Reads csv by line. Uses csv dict iterator to loop through csv and add to collection
-    param1: target collection
-    param2: relative path and filename to csv data
-    """
-
-    cd = db[collection]
-    with open(f_name_path, mode='r', encoding='utf-8-sig') as csv_f:
-        reader = csv.DictReader(csv_f)
-        for row in reader:
-            try:
-                cd.insert_one(row)
-            except ValueError:
-                logging.debug("Error Parsing data: {}".format(row))
-
-
-def collection_search(col_name, search_d, p_console=False):
-    qry = list(db[col_name].find(search_d))
-    if p_console:
-        pprint(qry)
-    return qry
-
 
 if __name__ == "__main__":
-    db = connect_db('kiwi_db')
+    db = MongoDB('kiwi_db')
+    db.collection_search('parts', {}, p_console=True)
