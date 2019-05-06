@@ -3,11 +3,13 @@
 {% block subtitle %}Landing Page{% endblock subtitle %}
 
 {% block content %}
+
 <p>This is the main landing page - to use this site do ***this and than***</p>
-<br>
 <select name = search_type method="GET" action="/">
     <option value="{{options[0]}}" selected>{{options[0]}}</option>
     {% for option in options[1:] %}
     <option value= "{{ option}}">{{option}}</option>
     {% endfor %}
+<input type='submit' value='Submit' name='submit'/>
+
 {% endblock content %}
