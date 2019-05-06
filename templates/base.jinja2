@@ -4,12 +4,16 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Cache-Control" content="no-store">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
 
-	<title>Mailroom</title>
+	<title>Mongo Demo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
 </head>
 
 <body>
-	<h1>Mongo Demo</h1>
+	<header>Mongo Demo</header>
 	<h2>{% block subtitle %} {% endblock subtitle %}</h2>
 	{% block content %} {% endblock content %}
   </body>
