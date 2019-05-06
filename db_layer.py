@@ -45,7 +45,7 @@ class MongoDB():
     def collection_search(self, coll_name, search_d, p_console=False):
         values = []
         qry = list(self.db[coll_name].find(search_d))
-        keys = qry[0].keys()
+        keys = qry[0].keys()[1:]
         for item in qry:
             values.append([v for v in item.values()][1:])
         if p_console:
