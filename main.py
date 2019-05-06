@@ -14,17 +14,21 @@ app = Flask(__name__)
 app.config.from_mapping(config)
 mongo = PyMongo(app)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def home_page():
-    if request.method == 'POST':
-        print('POST Request')
-        print(request.form.get('search_type'))
-    elif request.method == "GET":
-        options = ["Part", "Assembly", "Installation"]
-        return render_template("main_page.jinja2", options=options)
+    options = ["Part", "Assembly", "Installation"]
+    return render_template("main_page.jinja2", options=options)
+
+@app.route('/part')
+def part_page():
+    print(request.args)
+    part_id = request.args["part_number"]
+    # online_users = mongo.db.users.find({'online': True})
+    # return render_template('index.html', online_users=online_users)
+    return render_template("part.jinja2",part=part_id)
 
 @app.route('/part/<int:part_id>')
-def part_page(part_id):
+def part_page_specific(part_id):
     # online_users = mongo.db.users.find({'online': True})
     # return render_template('index.html', online_users=online_users)
     return render_template("part.jinja2", part=part_id)
