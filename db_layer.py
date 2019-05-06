@@ -43,10 +43,14 @@ class MongoDB():
         self.db = database
 
     def collection_search(self, coll_name, search_d, p_console=False):
+        values = []
         qry = list(self.db[coll_name].find(search_d))
+        keys = qry[0].keys()
+        for item in qry:
+            values.append([v for v in item.values()][1:])
         if p_console:
-            pprint(qry)
-        return qry
+            pprint(values)
+        return keys, values
 
     def add_collection_csv(self, collection, f_name_path=""):
         """Reads csv by line. Uses csv dict iterator to loop through csv and add to collection
