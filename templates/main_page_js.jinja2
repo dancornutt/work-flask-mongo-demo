@@ -1,0 +1,88 @@
+{% extends 'base.jinja2' %}
+
+{% block subtitle %}Javascript Page{% endblock subtitle %}
+
+{% block content %}
+
+<h3>Parts</h3>
+
+{% for title in titles %}
+    <select style="width:65pt;" id="select_{{ title }}"</th>
+    <option>First</option>
+    <option>Second</option>
+    <option>Third</option>
+    </select>
+{% endfor %}
+
+<table id="PartTable">
+  <tr class="header">
+    {% for title in titles %}
+        <th style="width:60pt;">{{ title }}</th>
+        {% endfor %}
+  </tr>
+  <tr>
+    {% for data_row in data %}
+        {% for item in data_row  %}
+            <td>{{ item }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+
+</table>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<h3>My Customers</h3>
+<select id="mylist" onchange="myFunction()" class='form-control'>
+<option>A</option>
+<option>b</option>
+<option>c</option>
+</select>
+
+<table id="myTable">
+  <tr class="header">
+    <th style="width:60%;">Name</th>
+    <th style="width:40%;">Country</th>
+  </tr>
+  <tr>
+    <td>Alfreds Futterkiste</td>
+    <td>Germany</td>
+  </tr>
+  <tr>
+    <td>Berglunds snabbkop</td>
+    <td>Sweden</td>
+  </tr>
+  <tr>
+    <td>Island Trading</td>
+    <td>UK</td>
+  </tr>
+  <tr>
+    <td>Koniglich Essen</td>
+    <td>Germany</td>
+  </tr>
+  <tr>
+    <td>Laughing Bacchus Winecellars</td>
+    <td>Canada</td>
+  </tr>
+  <tr>
+    <td>Magazzini Alimentari Riuniti</td>
+    <td>Italy</td>
+  </tr>
+  <tr>
+    <td>North/South</td>
+    <td>UK</td>
+  </tr>
+  <tr>
+    <td>Paris specialites</td>
+    <td>France</td>
+  </tr>
+</table>
+
+{% endblock content %}

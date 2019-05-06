@@ -36,30 +36,30 @@ header h1.logo:hover {
   margin: 0 auto;
 }
 div.home {
-  padding: 10px 0 30px 0;
+  padding: 10px 0 20px 0;
   background-color: #E6E6FA;
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;
 }
 div.about {
-  padding: 10px 0 30px 0;
+  padding: 10px 0 20px 0;
   background-color: #E6E6FA;
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;
 }
 h2 {
-  font-size: 3em;
-  margin-top: 30px;
+  font-size: 2.5em;
+  margin-top: 20px;
   text-align: left;
   letter-spacing: -2px;
 }
 h3 {
   font-size: 1.7em;
   font-weight: 100;
-  margin-top: 30px;
-  text-align: center;
+  margin-top: 0px;
+  text-align: left;
   letter-spacing: -1px;
   color: #999;
 }
@@ -76,4 +76,15 @@ h3 {
 .menu li a {
   color: #444;
   text-decoration: none;
+}
+table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+th, td {
+  padding: 5px;
+  text-align: left;
 }

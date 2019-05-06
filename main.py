@@ -1,6 +1,10 @@
 import os
 from flask import Flask, render_template, request
-from flask_pymongo import PyMongo
+from db_layer import MongoCloud, MongoDB
+# from flask_pymongo import PyMongo
+
+db = MongoDB("kiwi_db")
+
 
 config = {
     "DEBUG": True,
@@ -10,12 +14,19 @@ config = {
 
 app = Flask(__name__)
 app.config.from_mapping(config)
-mongo = PyMongo(app)
+#mongo = PyMongo(app)
 
 @app.route('/')
 def home_page():
     options = ["Part", "Assembly", "Installation"]
     return render_template("main_page.jinja2", options=options)
+
+@app.route('/main')
+def home_page_js():
+    titles, data = db.collection_search("parts", {})
+    # titles = "Titles to use for the thing".split(" ")
+    # data = [[1, 2, 3, 4, 5, 6], [2, 3, 4, 5, 6, 7]]
+    return render_template("main_page_js.jinja2", titles=titles, data=data)
 
 @app.route('/part')
 def part_page():
