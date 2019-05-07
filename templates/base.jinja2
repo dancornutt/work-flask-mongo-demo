@@ -12,9 +12,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
 </head>
 
+<script type="text/javascript" src="{{ url_for('static', filename='js/main_page_js.js') }}"></script>
+
 <body>
 	<header>Mongo Demo</header>
 	<h2>{% block subtitle %} {% endblock subtitle %}</h2>
+
 	{% block content %} {% endblock content %}
   </body>
 </html>
