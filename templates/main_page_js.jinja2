@@ -1,25 +1,22 @@
 {% extends 'base.jinja2' %}
 
-{% block subtitle %}Javascript Page{% endblock subtitle %}
+{% block subtitle %}Javascript Page: Parts{% endblock subtitle %}
 
 {% block content %}
-
-<h3>Parts</h3>
-
-{% for title in titles %}
-    <select style="width:65pt;" id="select_{{ title }}"</th>
-    <option>First</option>
-    <option>Second</option>
-    <option>Third</option>
-    </select>
-{% endfor %}
-
 <table id="PartTable">
   <tr class="header">
     {% for title in titles %}
         <th style="width:60pt;">{{ title }}</th>
-        {% endfor %}
+    {% endfor %}
   </tr>
+  <tr>
+  {% for title in titles %}
+      <td><select id="select_{{ title }}" onchange="PartFilter()" class='form-control'>
+          <option></option>
+          <option>DET</option>
+          <option>ASSY</option>
+          </select></td>
+      {% endfor %}
   <tr>
     {% for data_row in data %}
         {% for item in data_row  %}
