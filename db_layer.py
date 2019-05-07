@@ -43,6 +43,11 @@ class MongoDB():
         self.db = database
 
     def collection_search(self, coll_name, search_d, p_console=False):
+        """Searches collection on db object
+        coll_name: collection name (str)
+        search_d: search dictionary (dict) following pyMongo syntax
+        p_console: (bool) prints results to console default is Flase
+        """
         values = []
         qry = list(self.db[coll_name].find(search_d))
         keys = list(qry[0].keys())[1:]
@@ -53,9 +58,9 @@ class MongoDB():
         return keys, values
 
     def add_collection_csv(self, collection, f_name_path=""):
-        """Reads csv by line. Uses csv dict iterator to loop through csv and add to collection
-        param1: target collection
-        param2: relative path and filename to csv data
+        """Adds data to db collection object.
+        collection: target collection (str)
+        f_name_path: relative path and filename to csv data (str)
         """
 
         with open(f_name_path, mode='r', encoding='utf-8-sig') as csv_f:
@@ -75,9 +80,13 @@ def log_setup():
 
 # queries:
 # all features of single part
+#   -COMPLETE collection_search
 # all parts
+#   -COMPLETE collection_search
 # all keys of part collection. returns dict[collection]: [Features of type list]
+#   -COMPLETE? collection_search returns headers list of strings and values list of lists
 # all parts with kw filter
+#   -COMPLETE collection_search supports dict search with key words
 # all next higher (part number)
 # all next lower (part_number)
 
