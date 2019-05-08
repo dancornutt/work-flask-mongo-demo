@@ -61,15 +61,22 @@ class AzureDB():
             self.cursor.execute(f"INSERT INTO {table} ({headers}) VALUES ({values});")
 
 
-def collection_search(table, search_d={}, p_console=False):
+def table_columns(table):
     db = AzureDB()
-    db.cursor.execute(f"SELECT * FROM {table};")
-    data = db.cursor.fetchall()
     db.cursor.execute(f"SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_NAME = '{table}';")
     h_data = db.cursor.fetchall()
     headers = []
     for item in h_data:
         headers.append(item[0])
+    return headers
+
+
+def collection_search(table, search_d={}, p_console=False):
+    db = AzureDB()
+    db.cursor.execute(f"SELECT * FROM {table};")
+    data = db.cursor.fetchall()
+    db.cursor.execute(f"SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_NAME = '{table}';")
+    headers = table_columns(table)
     return headers, data
 
 
@@ -110,4 +117,9 @@ def airplane_lower_search(line_number):
     print(s_str)
     db.cursor.execute(s_str)
     db.conn.commit()
-    return None, db.cursor.fetchall()
+    data = db.cursor.fetchall()
+    headers = table_columns('installs')
+    headers.append('quantity')
+    return headers, data
+    # remove parent id
+    # add headers
