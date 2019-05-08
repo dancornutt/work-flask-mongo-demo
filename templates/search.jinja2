@@ -1,0 +1,75 @@
+{% extends 'base.jinja2' %}
+
+{% block subtitle %} {{ criteria }} {{ part }}{% endblock subtitle %}
+
+{% block content %}
+<p>This is the part page where you can see search results</p>
+
+<table id="AllTable">
+  <tr class="header">
+    {% for title in titles %}
+        <th style="width:60pt;">{{ title |replace("_", " ") | title }}</th>
+    {% endfor %}
+  </tr>
+  <tr>
+  {% for title in titles %}
+    {% if title == "part_type" %}
+      <td><select id="select_{{ title }}" onchange="Filter('{{ title }}')" class='form-control'>
+          <option></option>
+          <option>DET</option>
+          <option>ASSY</option>
+          </select></td>
+    {% elif title == "clg_type" %}
+        <td><select id="select_{{ title }}" onchange="Filter('{{ title }}')" class='form-control'>
+            <option></option>
+            <option>A</option>
+            <option>B</option>
+            </select></td>
+    {% elif title == "side" %}
+        <td><select id="select_{{ title }}" onchange="Filter('{{ title }}')" class='form-control'>
+            <option></option>
+            <option>LH</option>
+            <option>RH</option>
+            </select></td>
+    {% elif title == "location" %}
+        <td><select id="select_{{ title }}" onchange="Filter('{{ title }}')" class='form-control'>
+            <option></option>
+            <option>CTR</option>
+            <option>Outboard</option>
+            </select></td>
+    {% else %}
+        <td><select id="select_{{ title }}" onchange="Filter('{{ title }}')" class='form-control'>
+            <option></option>
+    {% endif %}
+    {% endfor %}
+  <tr>
+    {% for data_row in data %}
+        {% for item in data_row  %}
+            <td>{{ item }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+
+</table>
+<br>
+
+{% if extra_titles != None %}
+    <table id="ExtraAllTable">
+      <tr class="header">
+        {% for title in extra_titles %}
+            <th style="width:60pt;">{{ title |replace("_", " ") | title }}</th>
+        {% endfor %}
+      </tr>
+      <tr>
+        {% for data_row in extra_data %}
+            {% for item in data_row  %}
+                <td>{{ item }}</td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endif %}
+
+
+{% endblock content %}

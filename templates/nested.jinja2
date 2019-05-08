@@ -121,7 +121,25 @@
     <label for="radio-existing">EXISTING</label>
 </div>
 
+{% for level in data %}
+<ul>
+    <li><input type="checkbox" id="cb{{ level[0] }}"/><label for="cb{{ level[0] }}"> {{ level[0] }}</label>
+        <ul>
+            {% for level2 in level[1] %}
+            <li><input type="checkbox" id="cb{{ level2 }}"/><label for="cb{{ level2 }}">{{ level2 }}</label>
+                    <ul>
+                        <li><label>Sub Component </label> 1</li>
+                        <li><label>Sub Component </label> 2</li>
+                    </ul>
+            </li>
+            {% endfor %}
+        </ul>
+    </li>
+</ul>
 
+{% endfor %}
+
+{{ data }}
 <ul>
 	<li><input type="checkbox" id="cb1"/><label for="cb1">Airplane</label> Description: Other Airplane Info
 		<ul>
