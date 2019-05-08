@@ -110,4 +110,4 @@ def airplane_lower_search(line_number):
     print(s_str)
     db.cursor.execute(s_str)
     db.conn.commit()
-    return db.cursor.fetchall()
+    return db.cursor.fetchall(), None, None, None
