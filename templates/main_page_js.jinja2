@@ -6,30 +6,30 @@
 <table id="AllTable">
   <tr class="header">
     {% for title in titles %}
-        <th style="width:60pt;">{{ title }}</th>
+        <th style="width:60pt;">{{ title |replace("_", " ") | title }}</th>
     {% endfor %}
   </tr>
   <tr>
   {% for title in titles %}
-    {% if title == "Part_Type" %}
+    {% if title == "part_type" %}
       <td><select id="select_{{ title }}" onchange="Filter('{{ title }}')" class='form-control'>
           <option></option>
           <option>DET</option>
           <option>ASSY</option>
           </select></td>
-    {% elif title == "CLG_Type" %}
+    {% elif title == "clg_type" %}
         <td><select id="select_{{ title }}" onchange="Filter('{{ title }}')" class='form-control'>
             <option></option>
             <option>A</option>
             <option>B</option>
             </select></td>
-    {% elif title == "Side" %}
+    {% elif title == "side" %}
         <td><select id="select_{{ title }}" onchange="Filter('{{ title }}')" class='form-control'>
             <option></option>
             <option>LH</option>
             <option>RH</option>
             </select></td>
-    {% elif title == "Location" %}
+    {% elif title == "location" %}
         <td><select id="select_{{ title }}" onchange="Filter('{{ title }}')" class='form-control'>
             <option></option>
             <option>CTR</option>

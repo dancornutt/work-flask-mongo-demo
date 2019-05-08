@@ -1,9 +1,10 @@
 import os
 from flask import Flask, render_template, request, abort
-from db_layer import MongoCloud, MongoDB
+#from db_layer import MongoCloud, MongoDB
+from azure_db import collection_search
 # from flask_pymongo import PyMongo
 
-db = MongoDB("kiwi_db")
+#db = MongoDB("kiwi_db")
 
 
 config = {
@@ -15,6 +16,18 @@ config = {
 def get_tables():
     return_list = ["parts", "installs", "airplanes"]
     return return_list
+
+def nested_data():
+    tuple_test = (("ford", "company", "part 1", "part 1 info"),
+                  ("ford", "company", "part 2", "part 2 info"),
+                  ("ford", "company", "part 3", "part 3 info"),
+                  ("chev", "company", "part 1", "part 1 info"),
+                  ("chev", "company", "part 4", "part 4 info"),
+                  ("Prosche", "company", "part 4", "part 4 info"),
+                  ("ford", "company", "part 5", "part 5 info"),
+                  ("ford", "company", "part 6", "part 6 info"),
+                  ("Prosche", "company", "part 1", "part 1 info"))
+    return tuple_test
 
 app = Flask(__name__)
 app.config.from_mapping(config)
@@ -29,15 +42,15 @@ def full_table():
     available_tables = get_tables()
     request_type = request.args["type"]
     if request_type in available_tables:
-        titles, data = db.collection_search(request_type, {})
+        titles, data = collection_search(request_type)
         return render_template("main_page_js.jinja2", titles=titles, data=data)
     else:
         abort(404)
 
 @app.route('/nested')
 def nested_page():
-    #titles, data = db.collection_search("parts", {})
-    return render_template("nested.jinja2")
+    data = nested_data()
+    return render_template("nested.jinja2", data=data)
 
 @app.route('/part')
 def part_page():
