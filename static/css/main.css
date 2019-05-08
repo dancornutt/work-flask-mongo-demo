@@ -96,7 +96,6 @@ th, td {
  ul { list-style-type: none; }
  label{
  	background-color: #AAAFAB;
- 	border-radius: 5px;
  	padding: 3px;
  	padding-left: 25px;
  	color: white;
@@ -104,7 +103,6 @@ th, td {
  li {
  	margin: 10px;
  	padding: 5px;
- 	border: 1px solid #ABC;
  	border-radius: 5px;
  }
  input[type=checkbox] { display: none; }
@@ -154,12 +152,14 @@ th, td {
 
  .switch-field {
      display: flex;
-     margin-bottom: 36px;
+     margin-bottom: 10px;
      overflow: hidden;
+     padding-left: 10pt;
  }
 
  .switch-field input {
      position: absolute !important;
+     padding: 0 10px;
      clip: rect(0, 0, 0, 0);
      height: 1px;
      width: 1px;
