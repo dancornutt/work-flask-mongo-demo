@@ -33,24 +33,43 @@ class AzureDB():
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         """On exit, commits cleanup"""
+        print("I am exiting this BS")
         self.conn.commit()
         self.cursor.close()
         self.conn.close()
 
-    def drop_tables(self):
+    def drop_tables(self, table):
         """drops all tables in db"""
-        self.cursor.execute("DROP TABLE IF EXISTS inventory;")
-        print("Finished dropping table (if existed)")
+        self.cursor.execute(f"DROP TABLE IF EXISTS {table};")
+        print(f"Finished dropping {table} (if existed)")
 
-    def create_table(self, table):
+    def create_table(self, table, fields):
         """creates new table"""
         self.cursor.execute(
-            "CREATE TABLE inventory (id serial PRIMARY KEY, name VARCHAR(50), quantity INTEGER);")
+            f"CREATE TABLE {table} ({fields});")
+        # APs ==> id serial PRIMARY KEY, customer VARCHAR(50), line_number VARCHAR(4), tail VARCHAR(15), status VARCHAR(50)
+        # Installs ==> id serial PRIMARY KEY, owned_by VARCHAR(20), install_name VARCHAR(40), install_number VARCHAR(40), family VARCHAR(50), pin VARCHAR(20), status_type VARCHAR(20), starting VARCHAR(20), ending VARCHAR(20), location VARCHAR(20), restricted_use VARCHAR(20), first_use VARCHAR(20), comments VARCHAR(500), iws_comments VARCHAR(500)
+        # Parts ==> id serial PRIMARY KEY, part_number VARCHAR(50), part_name VARCHAR(50), part_type VARCHAR(10), revision VARCHAR(3), pin VARCHAR(10), family_type VARCHAR(50), clg_type VARCHAR(10), side VARCHAR(20), location VARCHAR(20), sta VARCHAR(10), part_restriction VARCHAR(30), first_use VARCHAR(20), comments VARCHAR(500), similar_to VARCHAR(50), iws_comments VARCHAR(500)
+        # Contains ==>
         print("Finished creating table")
 
-    def insert_data_in_table(self, table, data):
-        self.cursor.execute(f"INSERT INTO {table} (name, quantity) VALUES (%s, %s);", ("banana", 150))
-        print("Inserted 1 rows of data")
+    def import_csv(self, table, fields, abs_path, delimiter=","):
+        self.cursor.execute(
+            f"""COPY {table}({fields})
+            FROM '{abs_path}' DELIMITER '{delimiter}' CSV HEADER;"""
+        )
+
+    def insert_data_in_table(self, table, csv_r_path):
+        with open(csv_r_path, 'r') as f:
+            headers = next(f).strip()
+            headers = headers.replace(',', ', ')
+            data = f.readlines()
+        for line in data:
+            values = "'" + line.replace(",", "', '").strip() + "'"
+            com_str = f"INSERT INTO {table} ({headers}) VALUES ({values});"
+            print(com_str)
+            self.cursor.execute(f"INSERT INTO {table} ({headers}) VALUES ({values});")
+            print("Inserted 1 rows of data: {values}")
 
 
 # QRYs
@@ -67,3 +86,6 @@ class AzureDB():
     # Installs: Name, Number, Family, PIN, Status, Type, Starting STA, Ending STA, Location, Restricted use, First Use
     # Parts: Name, Number, Family, PIN, Type, Description
     # Contains: Parent_Table, Par_ID, Child_Table, Child_ID, QTY
+
+if __name__ == "__main__":
+    db = AzureDB()
