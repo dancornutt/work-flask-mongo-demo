@@ -16,16 +16,27 @@ function myFunction() {
     }
 }
 
-function PartFilter() {
-    var input, filter, table, tr, td, i;
-    input = document.getElementById("select_Part_Type");
+function Filter(type) {
+    var input, filter, table, tr, td, i, column;
+    input = document.getElementById("select_" + type);
     filter = input.value;
-    table = document.getElementById("PartTable");
+    table = document.getElementById("AllTable");
     tr = table.getElementsByTagName("tr");
+    if (type === "Part_Type") {
+        column = 2;
+    } else if (type === "CLG_Type") {
+        column = 6;
+    } else if (type === "Side") {
+        column = 7;
+    } else if (type === "Location") {
+        column = 8;
+    } else if (type === "STA") {
+        column = 9;
+    }
     for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[2];
+        td = tr[i].getElementsByTagName("td")[column];
         if (td) {
-            if (td.innerHTML.indexOf(filter) > -1) {
+            if (td.innerHTML.indexOf(filter) > -1 && tr[i].style.display != "none") {
                 tr[i].style.display = "";
             } else {
                 tr[i].style.display = "none";
@@ -51,4 +62,4 @@ for (i = 0; i < acc.length; i++) {
       panel.style.display = "block";
     }
   });
-} 
+}

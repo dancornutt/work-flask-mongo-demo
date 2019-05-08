@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, abort
 from db_layer import MongoCloud, MongoDB
 # from flask_pymongo import PyMongo
 
@@ -12,6 +12,10 @@ config = {
     "CACHE_DEFAULT_TIMEOUT": 1
 }
 
+def get_tables():
+    return_list = ["parts", "installs", "airplanes"]
+    return return_list
+
 app = Flask(__name__)
 app.config.from_mapping(config)
 
@@ -20,10 +24,15 @@ def home_page():
     options = ["Part", "Assembly", "Installation"]
     return render_template("main_page.jinja2", options=options)
 
-@app.route('/main')
-def home_page_js():
-    titles, data = db.collection_search("parts", {})
-    return render_template("main_page_js.jinja2", titles=titles, data=data)
+@app.route('/all')
+def full_table():
+    available_tables = get_tables()
+    request_type = request.args["type"]
+    if request_type in available_tables:
+        titles, data = db.collection_search(request_type, {})
+        return render_template("main_page_js.jinja2", titles=titles, data=data)
+    else:
+        abort(404)
 
 @app.route('/nested')
 def nested_page():

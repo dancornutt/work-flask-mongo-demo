@@ -93,6 +93,8 @@ th, td {
  * Expandable list CSS
  */
 
+
+/*
  ul { list-style-type: none; }
  label{
  	background-color: #AAAFAB;
@@ -150,6 +152,8 @@ th, td {
 
  /* This is for the radio button thing*/
 
+
+/*
  .switch-field {
      display: flex;
      margin-bottom: 10px;

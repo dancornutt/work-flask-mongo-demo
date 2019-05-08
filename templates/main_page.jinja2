@@ -4,7 +4,13 @@
 
 {% block content %}
 
-<p>This is the main landing page - to use this site do ***this and than***</p>
+Show all of the selected item type in an interactive table
+
+<form method="GET" action={{ url_for('full_table') }}>
+    <input id="all_parts" type='submit' name="type" value="airplanes">
+    <input id="all_install" type='submit' name="type" value="installs">
+    <input id="all_airplanes" type='submit' name="type" value="parts">
+</form>
 
 <form method="GET" action={{ url_for('part_page') }}>
     <select name = search_type method="GET" action="/">
@@ -17,5 +23,6 @@
     <br>
     <input type="checkbox" name="Description" value="True" checked>Description
     <input type="checkbox" name="Obsolete" value="Obsolete">Obsolete
+</form>
 
 {% endblock content %}
