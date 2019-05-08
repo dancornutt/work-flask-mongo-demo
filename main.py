@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request, abort
 #from db_layer import MongoCloud, MongoDB
-from azure_db import collection_search, part_lower_search, airplanes_lower_search
+from azure_db import collection_search, part_lower_search, airplane_lower_search
 
 # from flask_pymongo import PyMongo
 
@@ -61,7 +61,9 @@ def search_page():
     #         titles, data, extra_titles, extra_data = installs_higher_search(request.args["part_number"])
     if request.args["search_type"] == "airplanes":
         if request.args["level"] == "next_lower":
-            titles, data, extra_titles, extra_data = airplanes_lower_search(request.args["part_number"])
+            titles, data = airplane_lower_search(request.args["part_number"])
+            extra_titles = None
+            extra_data = None
             criteria = "Search Results for Airplane Lower, Line Number:" + request.args["part_number"]
         elif request.args["level"] == "next_higher":
             abort(404)
