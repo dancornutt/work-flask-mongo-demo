@@ -30,8 +30,6 @@ function Filter(type) {
         column = 7;
     } else if (type === "Location") {
         column = 8;
-    } else if (type === "STA") {
-        column = 9;
     }
     for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[column];

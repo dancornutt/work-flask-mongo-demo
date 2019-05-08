@@ -21,8 +21,8 @@ app.config.from_mapping(config)
 
 @app.route('/')
 def home_page():
-    options = ["Part", "Assembly", "Installation"]
-    return render_template("main_page.jinja2", options=options)
+    tables = get_tables()
+    return render_template("home_page.jinja2", tables=tables)
 
 @app.route('/all')
 def full_table():

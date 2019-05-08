@@ -35,12 +35,6 @@
             <option>CTR</option>
             <option>Outboard</option>
             </select></td>
-    {% elif title == "STA" %}
-        <td><select id="select_{{ title }}" onchange="Filter('{{ title }}')" class='form-control'>
-            <option></option>
-            <option>Const</option>
-            <option>Non Const</option>
-            </select></td>
     {% else %}
         <td><select id="select_{{ title }}" onchange="Filter('{{ title }}')" class='form-control'>
             <option></option>
