@@ -2,3 +2,4 @@ passwords.txt
 __pycache__/
 data/
 app_log/
+archive/
