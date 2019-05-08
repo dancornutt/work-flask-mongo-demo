@@ -71,3 +71,43 @@ def collection_search(table, search_d={}, p_console=False):
     for item in h_data:
         headers.append(item[0])
     return headers, data
+
+
+def ap_install(ap):
+    pass
+
+
+def part_lower_search(part_number):
+    """Searches next lower for specified part number
+    part_number: str() parent part number
+    return: headers[list], data[list of lists]
+    """
+    db = AzureDB()
+    db.cursor.execute(f"""SELECT Child.*, br.quantity
+                      FROM parts AS Parent
+                      INNER JOIN parent_child AS br
+                      ON Parent.id=br.parent_id
+                      INNER JOIN parts as Child
+                      ON br.child_id=Child.id
+                      WHERE Parent.part_number={part_number}
+                      """)
+
+
+def airplane_lower_search(line_number):
+    """Searches next lower for specified line number
+    part_number: str() parent part number
+    return: headers[list], data[list of lists]
+    """
+    db = AzureDB()
+    s_str = f"""SELECT install.*, br.quantity
+                      FROM airplanes AS AP
+                      INNER JOIN airplane_install AS br
+                      ON AP.id=br.ap_id
+                      INNER JOIN installs as install
+                      ON br.install_id=install.id
+                      WHERE AP.line_number = '{line_number}';
+                      """
+    print(s_str)
+    db.cursor.execute(s_str)
+    db.conn.commit()
+    return db.cursor.fetchall()
