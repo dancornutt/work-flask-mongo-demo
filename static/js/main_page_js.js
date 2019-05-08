@@ -22,14 +22,14 @@ function Filter(type) {
     filter = input.value;
     table = document.getElementById("AllTable");
     tr = table.getElementsByTagName("tr");
-    if (type === "Part_Type") {
-        column = 2;
-    } else if (type === "CLG_Type") {
-        column = 6;
-    } else if (type === "Side") {
+    if (type === "part_type") {
+        column = 3;
+    } else if (type === "clg_type") {
         column = 7;
-    } else if (type === "Location") {
+    } else if (type === "side") {
         column = 8;
+    } else if (type === "location") {
+        column = 9;
     }
     for (i = 0; i < tr.length; i++) {
         td = tr[i].getElementsByTagName("td")[column];

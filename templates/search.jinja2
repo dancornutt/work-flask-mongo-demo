@@ -1,8 +1,10 @@
 {% extends 'base.jinja2' %}
 
-{% block subtitle %}Javascript Page: Parts{% endblock subtitle %}
+{% block subtitle %} {{ criteria }} {{ part }}{% endblock subtitle %}
 
 {% block content %}
+<p>This is the part page where you can see search results</p>
+
 <table id="AllTable">
   <tr class="header">
     {% for title in titles %}
@@ -49,5 +51,25 @@
     {% endfor %}
 
 </table>
+<br>
+
+{% if extra_titles != None %}
+    <table id="ExtraAllTable">
+      <tr class="header">
+        {% for title in extra_titles %}
+            <th style="width:60pt;">{{ title |replace("_", " ") | title }}</th>
+        {% endfor %}
+      </tr>
+      <tr>
+        {% for data_row in extra_data %}
+            {% for item in data_row  %}
+                <td>{{ item }}</td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endif %}
+
 
 {% endblock content %}
