@@ -3,7 +3,7 @@
 {% block subtitle %}Javascript Page: Parts{% endblock subtitle %}
 
 {% block content %}
-<table id="PartTable">
+<table id="AllTable">
   <tr class="header">
     {% for title in titles %}
         <th style="width:60pt;">{{ title }}</th>
@@ -11,12 +11,35 @@
   </tr>
   <tr>
   {% for title in titles %}
-      <td><select id="select_{{ title }}" onchange="PartFilter()" class='form-control'>
+    {% if title == "Part_Type" %}
+      <td><select id="select_{{ title }}" onchange="Filter('{{ title }}')" class='form-control'>
           <option></option>
           <option>DET</option>
           <option>ASSY</option>
           </select></td>
-      {% endfor %}
+    {% elif title == "CLG_Type" %}
+        <td><select id="select_{{ title }}" onchange="Filter('{{ title }}')" class='form-control'>
+            <option></option>
+            <option>A</option>
+            <option>B</option>
+            </select></td>
+    {% elif title == "Side" %}
+        <td><select id="select_{{ title }}" onchange="Filter('{{ title }}')" class='form-control'>
+            <option></option>
+            <option>LH</option>
+            <option>RH</option>
+            </select></td>
+    {% elif title == "Location" %}
+        <td><select id="select_{{ title }}" onchange="Filter('{{ title }}')" class='form-control'>
+            <option></option>
+            <option>CTR</option>
+            <option>Outboard</option>
+            </select></td>
+    {% else %}
+        <td><select id="select_{{ title }}" onchange="Filter('{{ title }}')" class='form-control'>
+            <option></option>
+    {% endif %}
+    {% endfor %}
   <tr>
     {% for data_row in data %}
         {% for item in data_row  %}
@@ -25,61 +48,6 @@
         </tr>
     {% endfor %}
 
-</table>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-
-<h3>My Customers</h3>
-<select id="mylist" onchange="myFunction()" class='form-control'>
-<option>A</option>
-<option>b</option>
-<option>c</option>
-</select>
-
-<table id="myTable">
-  <tr class="header">
-    <th style="width:60%;">Name</th>
-    <th style="width:40%;">Country</th>
-  </tr>
-  <tr>
-    <td>Alfreds Futterkiste</td>
-    <td>Germany</td>
-  </tr>
-  <tr>
-    <td>Berglunds snabbkop</td>
-    <td>Sweden</td>
-  </tr>
-  <tr>
-    <td>Island Trading</td>
-    <td>UK</td>
-  </tr>
-  <tr>
-    <td>Koniglich Essen</td>
-    <td>Germany</td>
-  </tr>
-  <tr>
-    <td>Laughing Bacchus Winecellars</td>
-    <td>Canada</td>
-  </tr>
-  <tr>
-    <td>Magazzini Alimentari Riuniti</td>
-    <td>Italy</td>
-  </tr>
-  <tr>
-    <td>North/South</td>
-    <td>UK</td>
-  </tr>
-  <tr>
-    <td>Paris specialites</td>
-    <td>France</td>
-  </tr>
 </table>
 
 {% endblock content %}

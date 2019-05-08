@@ -88,3 +88,115 @@ th, td {
   padding: 5px;
   text-align: left;
 }
+
+/*
+ * Expandable list CSS
+ */
+
+
+/*
+ ul { list-style-type: none; }
+ label{
+ 	background-color: #AAAFAB;
+ 	padding: 3px;
+ 	padding-left: 25px;
+ 	color: white;
+ }
+ li {
+ 	margin: 10px;
+ 	padding: 5px;
+ 	border-radius: 5px;
+ }
+ input[type=checkbox] { display: none; }
+ input[type=checkbox] ~ ul {
+ 	max-height: 0;
+ 	max-width: 0;
+ 	opacity: 0;
+ 	overflow: hidden;
+ 	white-space:nowrap;
+    -webkit-transition:all 1s ease;
+    -moz-transition:all 1s ease;
+    -o-transition:all 1s ease;
+    transition:all 1s ease;
+
+ }
+ input[type=checkbox]:checked ~ ul {
+ 	max-height: 100%;
+ 	max-width: 100%;
+ 	opacity: 1;
+ }
+ input[type=checkbox] + label:before{
+ 	transform-origin:25% 50%;
+   border: 8px solid transparent;
+   border-width: 8px 12px;
+   border-left-color: white;
+   margin-left: -20px;
+ 	width: 0;
+ 	height: 0;
+ 	display: inline-block;
+ 	text-align: center;
+ 	content: '';
+ 	color: #AAAFAB;
+    -webkit-transition:all .5s ease;
+    -moz-transition:all .5s ease;
+    -o-transition:all .5s ease;
+    transition:all .5s ease;
+ 	position: absolute;
+ 	margin-top: 1px;
+ }
+ input[type=checkbox]:checked + label:before {
+ 	transform: rotate(90deg);
+ 	/*margin-top: 6px;
+   margin-left: -25px;*/
+ }
+
+ /* This is for the radio button thing*/
+
+
+/*
+ .switch-field {
+     display: flex;
+     margin-bottom: 10px;
+     overflow: hidden;
+     padding-left: 10pt;
+ }
+
+ .switch-field input {
+     position: absolute !important;
+     padding: 0 10px;
+     clip: rect(0, 0, 0, 0);
+     height: 1px;
+     width: 1px;
+     border: 0;
+     overflow: hidden;
+ }
+
+ .switch-field label {
+     background-color: #e4e4e4;
+     color: rgba(0, 0, 0, 0.6);
+     font-size: 14px;
+     line-height: 1;
+     text-align: center;
+     padding: 8px 16px;
+     margin-right: -1px;
+     border: 1px solid rgba(0, 0, 0, 0.2);
+     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+     transition: all 0.1s ease-in-out;
+ }
+
+ .switch-field label:hover {
+     cursor: pointer;
+ }
+
+ .switch-field input:checked + label {
+     background-color: #a5dc86;
+     box-shadow: none;
+ }
+
+ .switch-field label:first-of-type {
+     border-radius: 4px 0 0 4px;
+ }
+
+ .switch-field label:last-of-type {
+     border-radius: 0 4px 4px 0;
+ }

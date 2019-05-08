@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, abort
 from db_layer import MongoCloud, MongoDB
 # from flask_pymongo import PyMongo
 
@@ -12,21 +12,32 @@ config = {
     "CACHE_DEFAULT_TIMEOUT": 1
 }
 
+def get_tables():
+    return_list = ["parts", "installs", "airplanes"]
+    return return_list
+
 app = Flask(__name__)
 app.config.from_mapping(config)
-#mongo = PyMongo(app)
 
 @app.route('/')
 def home_page():
-    options = ["Part", "Assembly", "Installation"]
-    return render_template("main_page.jinja2", options=options)
+    tables = get_tables()
+    return render_template("home_page.jinja2", tables=tables)
 
-@app.route('/main')
-def home_page_js():
-    titles, data = db.collection_search("parts", {})
-    # titles = "Titles to use for the thing".split(" ")
-    # data = [[1, 2, 3, 4, 5, 6], [2, 3, 4, 5, 6, 7]]
-    return render_template("main_page_js.jinja2", titles=titles, data=data)
+@app.route('/all')
+def full_table():
+    available_tables = get_tables()
+    request_type = request.args["type"]
+    if request_type in available_tables:
+        titles, data = db.collection_search(request_type, {})
+        return render_template("main_page_js.jinja2", titles=titles, data=data)
+    else:
+        abort(404)
+
+@app.route('/nested')
+def nested_page():
+    #titles, data = db.collection_search("parts", {})
+    return render_template("nested.jinja2")
 
 @app.route('/part')
 def part_page():

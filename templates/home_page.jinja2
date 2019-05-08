@@ -1,0 +1,50 @@
+{% extends 'base.jinja2' %}
+
+{% block subtitle %}Landing Page{% endblock subtitle %}
+
+{% block content %}
+
+Show all of the selected item type in an interactive table
+
+<form method="GET" action={{ url_for('full_table') }}>
+    {% for table in tables %}
+        <input id="all_{{ table }}" type='submit' name="type" value="{{ table }}">
+    {% endfor %}
+</form>
+<br><br>
+
+Show all parts for a specific airplane in an indentured parts list<br>
+
+<form method="GET" action={{ url_for('nested_page') }}>
+    <select name = line_number>
+    <option value="BC890">BC890</option>
+    <option value="BC003">BC003</option>
+    <option value="BC890">BC202</option>
+    <option value="BC003">BC038</option>
+    </select>
+    <input type='submit' value="Submit">
+</form>
+
+<br><br>
+
+Search for a specific item and show next higher or next lower information
+
+<form method="GET" action={{ url_for('part_page') }}>
+    <select name = search_type method="GET" action="/">
+        <option value="{{tables[0]}}" selected>{{tables[0]}}</option>
+        {% for table in tables[1:] %}
+            <option value= "{{ table }}">{{ table }}</option>
+        {% endfor %}
+        <label for="number">Number: </label><input type="text" id='number' name='part_number'>
+        <select name = level>
+        <option value="next_higher">Next Higher</option>
+        <option value="next_lower">Next Lower</option>
+        </select>
+    <input type='submit' value="Submit">
+    <br>
+    Display the following fields
+    <input type="checkbox" name="Description" value="True" checked>Description
+    <input type="checkbox" name="Obsolete" value="Obsolete">Obsolete
+</form>
+
+{% endblock content %}
