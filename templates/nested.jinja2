@@ -25,10 +25,10 @@
  	opacity: 0;
  	overflow: hidden;
  	white-space:nowrap;
-    -webkit-transition:all 1s ease;
-    -moz-transition:all 1s ease;
-    -o-transition:all 1s ease;
-    transition:all 1s ease;
+    -webkit-transition:all .1s ease;
+    -moz-transition:all .1s ease;
+    -o-transition:all .1s ease;
+    transition:all .1s ease;
 
  }
  input[type=checkbox]:checked ~ ul {
@@ -48,10 +48,10 @@
  	text-align: center;
  	content: '';
  	color: #AAAFAB;
-    -webkit-transition:all .5s ease;
-    -moz-transition:all .5s ease;
-    -o-transition:all .5s ease;
-    transition:all .5s ease;
+    -webkit-transition:all .1s ease;
+    -moz-transition:all .1s ease;
+    -o-transition:all .1s ease;
+    transition:all .1s ease;
  	position: absolute;
  	margin-top: 1px;
  }
@@ -121,188 +121,60 @@
     <label for="radio-existing">EXISTING</label>
 </div>
 
-{% for level in data %}
+
+
 <ul>
-    <li><input type="checkbox" id="cb{{ level[0] }}"/><label for="cb{{ level[0] }}"> {{ level[0] }}</label>
-        <ul>
-            {% for level2 in level[1] %}
-            <li><input type="checkbox" id="cb{{ level2 }}"/><label for="cb{{ level2 }}">{{ level2 }}</label>
-                    <ul>
-                        <li><label>Sub Component </label> 1</li>
-                        <li><label>Sub Component </label> 2</li>
+	<li><input type="checkbox" id="cb1"/><label for="cb1">Installation 1</label> STA 300-350
+		<ul>
+			<li><input type="checkbox" id="cb2"/><label for="cb2">Sub Assembly 1</label>
+					<ul>
+						<li><label>Detail 1</label> Bracket</li>
+						<li><label>Detail 2</label> Support</li>
+					</ul>
+			</li>
+			<li><input type="checkbox" id="cb3"/><label for="cb3">Sub Assembly 2</label>
+			<ul>
+				<li><input type="checkbox" id="cb5"/><label for="cb5">Sub Assembly 3</label>
+					<ul>
+						<li><label>Detail 1</label> Bracket </li>
+						<li><label>Detail 3</label> Header</li>
+						<li><label>Detail 4</label> Cap</li>
+						<li><label>Detail 5</label> Tie Rod</li>
+					</ul>
+				</li>
+                <li><label>Detail6</label> Fastener</li>
+		</ul>
+			</li>
+			<li><input type="checkbox" id="cb4"/><label for="cb4">Sub Assembly 4</label>
+					<ul>
+						<li><label>Detail 5</label> Tie Rod</li>
+                        <li><label>Detail 7</label> Bracket</li>
                     </ul>
-            </li>
-            {% endfor %}
-        </ul>
-    </li>
-</ul>
-
-{% endfor %}
-
-{{ data }}
-<ul>
-	<li><input type="checkbox" id="cb1"/><label for="cb1">Airplane</label> Description: Other Airplane Info
-		<ul>
-			<li><input type="checkbox" id="cb2"/><label for="cb2">Installation 1</label>
-					<ul>
-						<li><label>Sub Component </label> 1</li>
-						<li><label>Sub Component </label> 2</li>
-					</ul>
-			</li>
-			<li><input type="checkbox" id="cb3"/><label for="cb3">Level 2-B</label>
-			<ul>
-				<li><input type="checkbox" id="cb5"/><label for="cb5">Level 3-A</label>
-					<ul>
-						<li><label>Level 4-A</label> Content</li>
-						<li><label>Level 4-B</label> Content</li>
-						<li><label>Level 4-C</label> Content</li>
-						<li><label>Level 4-D</label> Content</li>
-					</ul>
-				</li>
-			<li><input type="checkbox" id="cb6"/><label for="cb6">Level 3-B</label>
-					<ul>
-						<li><label>Level 4-A</label> Content</li>
-						<li><label>Level 4-B</label> Content</li>
-					</ul>
-				</li>
-			<li><input type="checkbox" id="cb7"/><label for="cb7">Level 3-C</label>
-					<ul>
-						<li><label>Level 4-A</label> Content</li>
-						<li><label>Level 4-B</label> Content</li>
-						<li><label>Level 4-C</label> Content</li>
-					</ul>
-				</li>
-		</ul>
-			</li>
-			<li><input type="checkbox" id="cb4"/><label for="cb4">Level 2-C</label>
-					<ul>
-						<li><label>Level 3-A</label> Content</li>
-					</ul>
 			</li>
 		</ul>
 	</li>
-    <li><input type="checkbox" id="cb8"/><label for="cb8">Airplane</label>
+    <li><input type="checkbox" id="cb8"/><label for="cb8">Installation 2</label> STA 350-400
 		<ul>
-			<li><input type="checkbox" id="cb2"/><label for="cb2">Installation 1</label>
-					<ul>
-						<li><label>Sub Component </label> 1</li>
-						<li><label>Sub Component </label> 2</li>
-					</ul>
-			</li>
-			<li><input type="checkbox" id="cb3"/><label for="cb3">Level 2-B</label>
-			<ul>
-				<li><input type="checkbox" id="cb5"/><label for="cb5">Level 3-A</label>
-					<ul>
-						<li><label>Level 4-A</label> Content</li>
-						<li><label>Level 4-B</label> Content</li>
-						<li><label>Level 4-C</label> Content</li>
-						<li><label>Level 4-D</label> Content</li>
-					</ul>
-				</li>
-			<li><input type="checkbox" id="cb6"/><label for="cb6">Level 3-B</label>
-					<ul>
-						<li><label>Level 4-A</label> Content</li>
-						<li><label>Level 4-B</label> Content</li>
-					</ul>
-				</li>
-			<li><input type="checkbox" id="cb7"/><label for="cb7">Level 3-C</label>
-					<ul>
-						<li><label>Level 4-A</label> Content</li>
-						<li><label>Level 4-B</label> Content</li>
-						<li><label>Level 4-C</label> Content</li>
-					</ul>
-				</li>
-		</ul>
-			</li>
-			<li><input type="checkbox" id="cb4"/><label for="cb4">Level 2-C</label>
-					<ul>
-						<li><label>Level 3-A</label> Content</li>
-					</ul>
-			</li>
-		</ul>
-	</li>
-</ul>
-
-
-<ul>
-	<li><input type="checkbox" id="cb1"/><label for="cb1">Airplane</label> Description: Other Airplane Info
-		<ul>
-			<li><input type="checkbox" id="cb2"/><label for="cb2">Installation 1</label>
-					<ul>
-						<li><label>Sub Component </label> 1</li>
-						<li><label>Sub Component </label> 2</li>
-					</ul>
-			</li>
-			<li><input type="checkbox" id="cb3"/><label for="cb3">Level 2-B</label>
-			<ul>
-				<li><input type="checkbox" id="cb5"/><label for="cb5">Level 3-A</label>
-					<ul>
-						<li><label>Level 4-A</label> Content</li>
-						<li><label>Level 4-B</label> Content</li>
-						<li><label>Level 4-C</label> Content</li>
-						<li><label>Level 4-D</label> Content</li>
-					</ul>
-				</li>
-			<li><input type="checkbox" id="cb6"/><label for="cb6">Level 3-B</label>
-					<ul>
-						<li><label>Level 4-A</label> Content</li>
-						<li><label>Level 4-B</label> Content</li>
-					</ul>
-				</li>
-			<li><input type="checkbox" id="cb7"/><label for="cb7">Level 3-C</label>
-					<ul>
-						<li><label>Level 4-A</label> Content</li>
-						<li><label>Level 4-B</label> Content</li>
-						<li><label>Level 4-C</label> Content</li>
-					</ul>
-				</li>
-		</ul>
-			</li>
-			<li><input type="checkbox" id="cb4"/><label for="cb4">Level 2-C</label>
-					<ul>
-						<li><label>Level 3-A</label> Content</li>
-					</ul>
-			</li>
-		</ul>
-	</li>
-    <li><input type="checkbox" id="cb8"/><label for="cb8">Airplane</label>
-		<ul>
-			<li><input type="checkbox" id="cb2"/><label for="cb2">Installation 1</label>
-					<ul>
-						<li><label>Sub Component </label> 1</li>
-						<li><label>Sub Component </label> 2</li>
-					</ul>
-			</li>
-			<li><input type="checkbox" id="cb3"/><label for="cb3">Level 2-B</label>
-			<ul>
-				<li><input type="checkbox" id="cb5"/><label for="cb5">Level 3-A</label>
-					<ul>
-						<li><label>Level 4-A</label> Content</li>
-						<li><label>Level 4-B</label> Content</li>
-						<li><label>Level 4-C</label> Content</li>
-						<li><label>Level 4-D</label> Content</li>
-					</ul>
-				</li>
-			<li><input type="checkbox" id="cb6"/><label for="cb6">Level 3-B</label>
-					<ul>
-						<li><label>Level 4-A</label> Content</li>
-						<li><label>Level 4-B</label> Content</li>
-					</ul>
-				</li>
-			<li><input type="checkbox" id="cb7"/><label for="cb7">Level 3-C</label>
-					<ul>
-						<li><label>Level 4-A</label> Content</li>
-						<li><label>Level 4-B</label> Content</li>
-						<li><label>Level 4-C</label> Content</li>
-					</ul>
-				</li>
-		</ul>
-			</li>
-			<li><input type="checkbox" id="cb4"/><label for="cb4">Level 2-C</label>
-					<ul>
-						<li><label>Level 3-A</label> Content</li>
-					</ul>
-			</li>
+        <li><input type="checkbox" id="cb9"/><label for="cb9">Sub Assembly 1</label>
+                <ul>
+                    <li><label>Detail 1</label> Bracket</li>
+                    <li><label>Detail 2</label> Support</li>
+                </ul>
+        </li>
+        <li><input type="checkbox" id="cb10"/><label for="cb10">Sub Assembly 5</label>
+        <ul>
+            <li><label>Detail 1</label> Bracket </li>
+            <li><label>Detail 3</label> Header</li>
+            <li><label>Detail 4</label> Cap</li>
+            <li><label>Detail 5</label> Tie Rod</li>
+    </ul>
+        </li>
+        <li><input type="checkbox" id="cb11"/><label for="cb11">Sub Assembly 4</label>
+                <ul>
+                    <li><label>Detail 5</label> Tie Rod</li>
+                    <li><label>Detail 7</label> Bracket</li>
+                </ul>
+        </li>
 		</ul>
 	</li>
 </ul>
