@@ -6,7 +6,7 @@
 
 Show all of the selected item type in an interactive table
 
-<form method="GET" action={{ url_for('full_table') }}>
+<form target="_blank" method="GET" action={{ url_for('full_table') }}>
     {% for table in tables %}
         <input id="all_{{ table }}" type='submit' name="type" value="{{ table }}">
     {% endfor %}
