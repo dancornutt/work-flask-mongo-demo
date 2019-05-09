@@ -1,7 +1,7 @@
 import os
-from flask import Flask, render_template, request, abort
+from flask import Flask, render_template, request, abort, redirect, url_for
 #from db_layer import MongoCloud, MongoDB
-from azure_db import collection_search, part_lower_search, airplane_lower_search
+from azure_db import collection_search, part_lower_search, airplane_lower_search, install_lower_search, part_lower_search
 
 # from flask_pymongo import PyMongo
 
@@ -49,21 +49,22 @@ def nested_page():
 
 @app.route('/search')
 def search_page():
-    # if request.args["search_type"] == "parts":
-    #     if request.args["level"] == "next_lower":
-    #         titles, data, extra_titles, extra_data = part_lower_search(request.args["part_number"])
+    extra_titles = None
+    extra_data = None
+    if request.args["search_type"] == "parts":
+        if request.args["level"] == "next_lower":
+            titles, data = part_lower_search(request.args["part_number"])
+            criteria = "Search Results for Part Lower, Part Number:" + request.args["part_number"]
     #     elif request.args["level"] == "next_higher":
     #         titles, data, extra_titles, extra_data = part_higher_search(request.args["part_number"])
-    # if request.args["search_type"] == "installs":
-    #     if request.args["level"] == "next_lower":
-    #         titles, data, extra_titles, extra_data = installs_lower_search(request.args["part_number"])
+    if request.args["search_type"] == "installs":
+        if request.args["level"] == "next_lower":
+            titles, data, extra_titles, extra_data = install_lower_search(request.args["part_number"])
     #     elif request.args["level"] == "next_higher":
     #         titles, data, extra_titles, extra_data = installs_higher_search(request.args["part_number"])
     if request.args["search_type"] == "airplanes":
         if request.args["level"] == "next_lower":
             titles, data = airplane_lower_search(request.args["part_number"])
-            extra_titles = None
-            extra_data = None
             criteria = "Search Results for Airplane Lower, Line Number:" + request.args["part_number"]
         elif request.args["level"] == "next_higher":
             abort(404)
@@ -73,6 +74,18 @@ def search_page():
 def part_page_specific(part_id):
     return render_template("part.jinja2", part=part_id)
 
+@app.route('/new_assy')
+def new_assembly():
+    titles, data = collection_search("parts")
+    form_data = []
+    for item in data:
+        form_data.append(item[1])
+    return render_template("new_assembly.jinja2", data=form_data)
+
+@app.route('/update', methods = ['POST'])
+def update_table():
+    print(request.form.getlist("parts"))
+    return redirect(url_for("new_assembly"))
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 7779))

@@ -1,0 +1,48 @@
+{% extends 'base.jinja2' %}
+
+{% block subtitle %}New Assembly Definition{% endblock subtitle %}
+
+{% block content %}
+<style>
+select {
+  position: relative;
+  left: 30px;
+  font-size: 1.1em;
+}
+input {
+    position: relative;
+    left: 30px;
+}
+</style>
+
+<script>
+function GetMultiSelect()
+{
+  var x=document.getElementById("part_select");
+  for (var i = 0; i < x.options.length; i++) {
+     if(x.options[i].selected ==true){
+          alert(x.options[i].value);
+      }
+  }
+}
+</script>
+
+
+<h3>Installation XXX</h3>
+<ul>
+    <li>1000-001</li>
+    <li>1000-002</li>
+</ul>
+
+
+<form method="POST" action={{ url_for('update_table') }}>
+<select id="part_select" name="parts" class="custom-select" size="20" multiple>
+    {% for item in data %}
+        <option selected>{{ item }} </option>
+    {% endfor %}
+</select>
+<input name="submit" type='submit' value="Add", onclick="GetMultiValues()"></input>
+
+</form>
+
+{% endblock %}
