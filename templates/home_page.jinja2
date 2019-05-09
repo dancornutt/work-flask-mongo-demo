@@ -15,7 +15,7 @@ Show all of the selected item type in an interactive table
 
 Show all parts for a specific airplane in an indentured parts list<br>
 
-<form method="GET" action={{ url_for('nested_page') }}>
+<form target="_blank" method="GET" action={{ url_for('nested_page') }}>
     <select name = line_number>
     <option value="BC890">BC890</option>
     <option value="BC003">BC003</option>
@@ -29,7 +29,7 @@ Show all parts for a specific airplane in an indentured parts list<br>
 
 Search for a specific item and show next higher or next lower information
 
-<form method="GET" action={{ url_for('search_page') }}>
+<form target="_blank" method="GET" action={{ url_for('search_page') }}>
     <select name = search_type method="GET" action="/">
         <option value="{{tables[0]}}" selected>{{tables[0]}}</option>
         {% for table in tables[1:] %}
