@@ -84,22 +84,6 @@ def ap_install(ap):
     pass
 
 
-def part_lower_search(part_number):
-    """Searches next lower for specified part number
-    part_number: str() parent part number
-    return: headers[list], data[list of lists]
-    """
-    db = AzureDB()
-    db.cursor.execute(f"""SELECT Child.*, br.quantity
-                      FROM parts AS Parent
-                      INNER JOIN parent_child AS br
-                      ON Parent.id=br.parent_id
-                      INNER JOIN parts as Child
-                      ON br.child_id=Child.id
-                      WHERE Parent.part_number={part_number}
-                      """)
-
-
 def airplane_lower_search(line_number):
     """Searches next lower for specified line number
     part_number: str() parent part number
@@ -114,12 +98,58 @@ def airplane_lower_search(line_number):
                       ON br.install_id=install.id
                       WHERE AP.line_number = '{line_number}';
                       """
-    print(s_str)
     db.cursor.execute(s_str)
     db.conn.commit()
     data = db.cursor.fetchall()
     headers = table_columns('installs')
     headers.append('quantity')
     return headers, data
-    # remove parent id
-    # add headers
+
+
+def install_lower_search(install):
+    """Searches next lower for specified installation
+    intsall_number: str() intallation number
+    return: headers[list], data[list of lists]
+    """
+    db = AzureDB()
+    s_str = f"""SELECT part.*, br.quantity
+                      FROM installs AS inst
+                      INNER JOIN install_part AS br
+                      ON inst.id=br.install_id
+                      INNER JOIN parts as part
+                      ON br.part_id=part.id
+                      WHERE install.install_number = '{install}';
+                      """
+    db.cursor.execute(s_str)
+    db.conn.commit()
+    data = db.cursor.fetchall()
+    headers = table_columns('parts')
+    headers.append('quantity')
+    return headers, data
+
+
+def part_lower_search(assembly):
+    """Searches next lower for specified part assembly
+    assembly: str() part number
+    return: headers[list], data[list of lists]
+    """
+    db = AzureDB()
+    s_str = f"""SELECT Child.*, br.quantity
+                      FROM parts AS Parent
+                      INNER JOIN parent_child AS br
+                      ON Parent.id=br.parent_id
+                      INNER JOIN parts as Child
+                      ON br.child_id=Child.id
+                      WHERE Parent.part_number = '{assembly}';
+                      """
+    db.cursor.execute(s_str)
+    db.conn.commit()
+    data = db.cursor.fetchall()
+    headers = table_columns('parts')
+    headers.append('quantity')
+    return headers, data
+# Install next higher
+# Install next lower
+
+# parts next higher (with IRM & Parts query)
+# parts next lower
